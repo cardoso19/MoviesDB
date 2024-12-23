@@ -8,11 +8,9 @@
 import Foundation
 
 public enum BaseDimension {
-    private var baseValue: CGFloat {
-        8
-    }
+    private static let baseValue: CGFloat = 8
     
-    func times(_ value: CGFloat) -> CGFloat {
+    public static func times(_ value: CGFloat) -> CGFloat {
         baseValue * value
     }
 }

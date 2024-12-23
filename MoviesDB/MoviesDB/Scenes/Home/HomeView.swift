@@ -10,14 +10,11 @@ import UIExtensions
 
 struct HomeView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(Color.onSurface)
-            Text("Hello, world!")
-                .foregroundStyle(Color.onSurface)
-        }
-        .padding()
+        BannerSection(title: "Trending Movies",
+                      movies: [Movie(imageName: "Pantheon",
+                                     title: "Pantehon",
+                                     rating: 0.79,
+                                     releaseDate: "01 September 2022")])
     }
 }
 
