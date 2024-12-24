@@ -6,29 +6,36 @@
 //
 
 import SwiftUI
+import UIExtensions
 
 struct BannerSection: View {
     let title: String
     let movies: [Movie]
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: BaseDimension.times(2)) {
             Text(title)
                 .font(.title2)
+                .bold()
                 .foregroundStyle(Color.onSurface)
-            LazyHStack {
-                ForEach(movies) { movie in
-                    BannerView(movie: movie, action: {})
+                .padding(.horizontal, BaseDimension.times(2))
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(movies) { movie in
+                        BannerView(movie: movie, action: {})
+                            .frame(width: UIScreen.main.bounds.size.width / 2.5)
+                    }
                 }
+                .padding(.horizontal, BaseDimension.times(2))
             }
         }
+        .padding(.vertical, BaseDimension.times(1))
     }
 }
 
 #Preview {
     BannerSection(title: "Trending",
-                  movies: [Movie(imageName: "Pantheon",
-                                 title: "Pantehon",
-                                 rating: 0.79,
-                                 releaseDate: "01 September 2022")])
+                  movies: [Movie.mock(),
+                           Movie.mock(),
+                           Movie.mock()])
 }

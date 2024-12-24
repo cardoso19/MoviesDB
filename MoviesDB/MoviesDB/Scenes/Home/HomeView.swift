@@ -9,15 +9,20 @@ import SwiftUI
 import UIExtensions
 
 struct HomeView: View {
+    let viewModel: HomeViewModel
+    
     var body: some View {
-        BannerSection(title: "Trending Movies",
-                      movies: [Movie(imageName: "Pantheon",
-                                     title: "Pantehon",
-                                     rating: 0.79,
-                                     releaseDate: "01 September 2022")])
+        ScrollView {
+            VStack(spacing: .zero) {
+                ForEach(viewModel.sections) { section in
+                    BannerSection(title: section.title,
+                                  movies: section.movies)
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView(viewModel: HomeViewModel())
 }

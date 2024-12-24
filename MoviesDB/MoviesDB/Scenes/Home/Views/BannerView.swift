@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UIComponents
 import UIExtensions
 
 struct BannerView: View {
@@ -22,7 +21,7 @@ struct BannerView: View {
     }
     
     private var content: some View {
-        VStack(spacing: .zero) {
+        VStack(alignment: .leading, spacing: .zero) {
             posterImage
             footer
         }
@@ -33,35 +32,36 @@ struct BannerView: View {
     private var posterImage: some View {
         Image(movie.imageName)
             .resizable()
-            .frame(width: 200, height: 250)
+            .aspectRatio(CGSize(width: 1280, height: 1920),
+                         contentMode: .fill)
     }
     
     private var footer: some View {
-        HStack(spacing: BaseDimension.times(1)) {
-            RatingView(rating: movie.rating)
-            texts
+        VStack(alignment: .leading, spacing: BaseDimension.times(1)) {
+            rating
+            Text(movie.title)
+                .lineLimit(1)
+                .font(.body)
+                .foregroundColor(Color.onSurface)
         }
         .padding(BaseDimension.times(1))
     }
     
-    private var texts: some View {
-        VStack(alignment: .leading, spacing: .zero) {
-            Text(movie.title)
-                .lineLimit(2)
-                .font(.headline)
+    private var rating: some View {
+        HStack(spacing: BaseDimension.times(1)) {
+            Image(systemName: "star.fill")
+                .resizable()
+                .foregroundColor(Color.rating)
+                .frame(width: BaseDimension.times(2),
+                       height: BaseDimension.times(2))
+            Text(String(format: "%.1f", movie.rating))
+                .font(.callout)
                 .foregroundColor(Color.onSurface)
-            Text(movie.releaseDate)
-                .lineLimit(1)
-                .font(.caption)
-                .foregroundColor(Color.onSurfaceVariant)
         }
     }
 }
 
 #Preview {
-    BannerView(movie: Movie(imageName: "Pantheon",
-                            title: "Pantehon",
-                            rating: 0.79,
-                            releaseDate: "01 September 2022"),
+    BannerView(movie: Movie.mock(),
                action: {})
 }

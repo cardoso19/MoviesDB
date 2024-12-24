@@ -14,3 +14,12 @@ struct Movie: Identifiable {
     let rating: Double
     let releaseDate: String
 }
+
+extension Movie {
+    static func mock() -> Movie {
+        Movie(imageName: "Pantheon",
+              title: "Pantheon",
+              rating: 7.90,
+              releaseDate: "01 Sep 2022")
+    }
+}
